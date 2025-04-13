@@ -1,11 +1,10 @@
 import numpy as np
 import pandas as pd
-
+import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 import time
-
 import xgboost as xgb
 from sklearn.preprocessing import LabelEncoder, Normalizer, QuantileTransformer, RobustScaler
 from sklearn.model_selection import train_test_split
@@ -19,6 +18,7 @@ import os
 
 import tensorflow as tf
 from tensorflow import keras
+from tensorflow.keras.callbacks import ModelCheckpoint
 
 from keras import layers, Sequential
 from keras.layers import Input, Dense
@@ -145,6 +145,15 @@ def training_model_nn(X_train, X_val, y_train, y_val, model, model_name, run_nam
         factor=0.1
     )
 
+    # Define checkpoint callback
+    checkpoint_filepath = f'models/{model_name}_checkpoint.keras'
+    checkpoint_callback = ModelCheckpoint(
+        filepath=checkpoint_filepath,
+        monitor='val_loss',
+        save_best_only=True,
+        verbose=1
+    )
+
     with mlflow.start_run(run_name=run_name, nested=True) as run:
         run_id = run.info.run_id  # Get the run_id
         model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
@@ -159,7 +168,10 @@ def training_model_nn(X_train, X_val, y_train, y_val, model, model_name, run_nam
 
         # Training session
         history = model.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=100, verbose=1,
-                            batch_size=1024, callbacks=[early_stopping, reduce_lr])
+                            batch_size=1024, callbacks=[early_stopping, reduce_lr, checkpoint_callback])
+
+        # Log checkpoint as artifact
+        mlflow.log_artifact(checkpoint_filepath)
 
         # Log metrics
         for epoch, (loss, accuracy, val_loss, val_accuracy) in enumerate(zip(
@@ -203,35 +215,50 @@ def training_model_traditional(X_train, X_val, y_train, y_val, model_name, run_n
 
     with mlflow.start_run(run_name=run_name, nested=True) as run:
         run_id = run.info.run_id
+        checkpoint_dir = "models"
+        iterations  = 20
+        checkpoint_prefix = f"{model_name}_checkpoint"
+
+        # Tạo thư mục models/ nếu nó không tồn tại
+        os.makedirs("models", exist_ok=True)
 
         if model_name == "xgboost":
             best_param = tune_and_log(X_train, y_train, X_val, y_val,
                                       "XgboostOptunaTunning",
-                                      n_trials=50)
+                                      n_trials=20)
             model = xgb.XGBClassifier(**best_param)
             mlflow.log_params(best_param)
 
-        model.fit(X_train, y_train, eval_set=[(X_val, y_val)], early_stopping_rounds=10, verbose=False)
+        model.fit(X_train, y_train, eval_set=[(X_val, y_val)], early_stopping_rounds=10,
+                  verbose=False, callbacks=[xgb.callback.TrainingCheckPoint(directory ="models",
+                                                                            name=f"{model_name}_checkpoint",
+                                                                            iterations =100 )])
 
         mlflow.log_params(model.get_params())
-        # Log model
         mlflow.sklearn.log_model(model, "model")
-        # Make predictions on the validation set for metric calculation
+
+        # Find latest check point and log to artifact
+        checkpoint_files = [f for f in os.listdir(checkpoint_dir) if f.startswith(checkpoint_prefix)]
+        if checkpoint_files:
+            latest_checkpoint = max(checkpoint_files)
+            latest_checkpoint_path = os.path.join(checkpoint_dir, latest_checkpoint)
+
+            mlflow.log_artifact(latest_checkpoint_path)
+        else:
+            print("Không tìm thấy tệp checkpoint.")
+
         y_pred_val = model.predict(X_val)
 
         # Calculate and log metrics
         accuracy = accuracy_score(y_val, y_pred_val)
 
-
         mlflow.log_metric("val_accuracy", accuracy)
 
         # Log val_loss (if available)
         if hasattr(model, 'evals_result') and model.evals_result():
-            # XGBoost or LightGBM
             val_loss = model.evals_result()['validation_0']['logloss'][-1]
             mlflow.log_metric("val_loss", val_loss)
         elif hasattr(model, 'evals_result_') and model.evals_result_():
-            # CatBoost
             val_loss = model.evals_result_['validation']['Logloss'][-1]
             mlflow.log_metric("val_loss", val_loss)
 

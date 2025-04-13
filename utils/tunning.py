@@ -42,7 +42,7 @@ def objective(trial, X_train, y_train, X_val, y_val):
 
     return accuracy
 
-def tune_and_log(X_train, y_train, X_val, y_val, run_name, n_trials=50):
+def tune_and_log(X_train, y_train, X_val, y_val, run_name, n_trials=30):
     mlflow.set_experiment("Hyperparametter Tunning")
     def objective_with_mlflow(trial, run_name):
         with mlflow.start_run(run_name=run_name, nested=True):
