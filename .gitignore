@@ -1,0 +1,95 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# PyCharm / VSCode
+.idea/
+.vscode/
+
+# Python dotenv
+.env
+*.env
+
+# Pytest / coverage
+.pytest_cache/
+htmlcov/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+*.py,cover
+.cache
+nosetests.xml
+test-results.xml
+
+# Build / distribution
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / logs
+*.log
+
+# MyPy / Pyre / Pylint
+.mypy_cache/
+.dmypy.json
+.pyre/
+.pylint.d/
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# TensorBoard / wandb
+runs/
+wandb/
+
+# Model checkpoints
+*.ckpt
+*.h5
+*.hdf5
+*.pth
+*.pt
+*.joblib
+*.pkl
+
+# Other common large files
+*.csv
+*.tsv
+*.npz
+*.npy
+
+# MacOS & Windows
+.DS_Store
+Thumbs.db
