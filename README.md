@@ -104,12 +104,15 @@ Kết quả của dự án này được ghi lại trong MLflow. Bạn có thể
 ### Màn hình MLflow Ui với experiment Anomaly Detection với các model trainning là các run name riêng biệt:
 
 ![Screenshot 2025-04-14 115447](https://github.com/user-attachments/assets/c309db2f-7b70-410e-9b50-62056b257849)
+
 ***
 **Hình ảnh chi tiết từng run name**
-- Details
+
+- *Details*
+  
 ![491010114_688199713574516_5695982584423680773_n](https://github.com/user-attachments/assets/491bcb8e-ef7c-4fa5-a5e9-93d78dc78a90)
 
-- Parametters và Metrics của từng model.
+- *Parametters* và *Metrics* của từng model.
 
 ![483682444_641587248748952_913109542874550237_n](https://github.com/user-attachments/assets/77a07f15-0ee2-4fe4-afab-73bdc5b8f0c5)
 
