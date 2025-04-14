@@ -103,9 +103,9 @@ Kết quả của dự án này được ghi lại trong MLflow. Bạn có thể
 
 ![Screenshot 2025-04-14 115447](https://github.com/user-attachments/assets/c309db2f-7b70-410e-9b50-62056b257849)
 
-![483682444_641587248748952_913109542874550237_n](https://github.com/user-attachments/assets/77a07f15-0ee2-4fe4-afab-73bdc5b8f0c5)
-
 ![491010114_688199713574516_5695982584423680773_n](https://github.com/user-attachments/assets/491bcb8e-ef7c-4fa5-a5e9-93d78dc78a90)
+
+![483682444_641587248748952_913109542874550237_n](https://github.com/user-attachments/assets/77a07f15-0ee2-4fe4-afab-73bdc5b8f0c5)
 
 ![491026607_1460727028670256_1670560323149226156_n](https://github.com/user-attachments/assets/bc981d9f-ce40-4a40-b483-5294e2b38299)
 
