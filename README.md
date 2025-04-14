@@ -6,6 +6,18 @@ Dự án này sử dụng Python và MLflow để phát hiện bất thường m
 
 CICIDS2017 là một tập dữ liệu phổ biến được sử dụng để đánh giá các hệ thống phát hiện xâm nhập mạng. Dự án này nhằm mục đích xây dựng và đánh giá các mô hình học máy để phát hiện các bất thường trong lưu lượng mạng.
 
+MLflow là một nền tảng mã nguồn mở dùng để quản lý vòng đời của mô hình học máy, từ việc thử nghiệm, huấn luyện, đến triển khai. Nó giúp dễ dàng theo dõi, quản lý và chia sẻ các mô hình học máy trong môi trường sản xuất. Các tính năng chính của MLflow bao gồm:
+
+* Tracking: Ghi lại các tham số, metrics, mô hình, và artifacts từ các thử nghiệm huấn luyện để dễ dàng theo dõi và so sánh.
+
+* Projects: Tổ chức mã nguồn, giúp tái sử dụng và chia sẻ mã nguồn huấn luyện mô hình.
+
+* Models: Quản lý và triển khai các mô hình học máy dưới dạng chuẩn (standard formats) như TensorFlow, PyTorch, Scikit-learn, v.v.
+
+* Registry: Quản lý các phiên bản mô hình, cho phép lưu trữ, theo dõi và triển khai các mô hình từ các môi trường khác nhau.
+
+MLflow hỗ trợ mọi giai đoạn trong quá trình phát triển mô hình, từ việc thử nghiệm các hyperparameters đến triển khai mô hình sản xuất một cách có tổ chức và hiệu quả.
+
 ## Thành viên nhóm:
 - Lê Quý Nhân - 22520999
 - Bùi Minh Quân - 22521173
