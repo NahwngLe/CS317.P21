@@ -6,7 +6,6 @@ from functools import partial
 from sklearn.metrics import accuracy_score
 
 def objective(trial, X_train, y_train, X_val, y_val):
-    # Định nghĩa không gian tìm kiếm hyperparameter
     n_estimators = trial.suggest_int("n_estimators", 50, 500)
     max_depth = trial.suggest_int("max_depth", 3, 15)
     learning_rate = trial.suggest_float("learning_rate", 0.01, 0.3)
@@ -17,7 +16,6 @@ def objective(trial, X_train, y_train, X_val, y_val):
     reg_alpha = trial.suggest_float("reg_alpha", 1e-5, 1.0, log=True)
     reg_lambda = trial.suggest_float("reg_lambda", 1e-5, 1.0, log=True)
 
-    # Khởi tạo mô hình XGBoost
     model = xgb.XGBClassifier(
         n_estimators=n_estimators,
         max_depth=max_depth,
@@ -31,13 +29,9 @@ def objective(trial, X_train, y_train, X_val, y_val):
         random_state=42
     )
 
-    # Huấn luyện mô hình
     model.fit(X_train, y_train)
 
-    # Dự đoán trên tập validation
     y_pred = model.predict(X_val)
-
-    # Tính toán metric
     accuracy = accuracy_score(y_val, y_pred)
 
     return accuracy
