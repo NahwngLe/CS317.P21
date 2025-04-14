@@ -8,6 +8,8 @@ CICIDS2017 là một tập dữ liệu phổ biến được sử dụng để �
 
 ## Thành viên nhóm:
 - Lê Quý Nhân - 22520999
+- Bùi Minh Quân - 22521173
+- Nguyễn Phạm Tiến Đạt - 22520217
 
 ## Cài đặt
 
@@ -87,7 +89,7 @@ cicids2017-anomaly-detection/
 
 ## Mô hình
 
-Dự án này sử dụng mô hình MLP, XGBoost để phát hiện bất thường mạng.
+Dự án này sử dụng mô hình MLP, XGBoost để phát hiện bất thường mạng thông qua bộ dữ liệu CICIDS2017.
 
 ## MLflow
 
@@ -96,6 +98,19 @@ MLflow được sử dụng để theo dõi các thí nghiệm, ghi lại các t
 ## Kết quả
 
 Kết quả của dự án này được ghi lại trong MLflow. Bạn có thể xem các kết quả trong MLflow UI.
+
+## Hình ảnh Demo
+
+![Screenshot 2025-04-14 115447](https://github.com/user-attachments/assets/c309db2f-7b70-410e-9b50-62056b257849)
+
+
+![Screenshot 2025-04-14 115422](https://github.com/user-attachments/assets/a8de4305-4342-4be1-9405-b9c957a969e7)
+
+
+![Screenshot 2025-04-14 115806](https://github.com/user-attachments/assets/e0db0845-bf81-4b06-8fd6-45e8b180560d)
+
+
+
 
 ## Đóng góp
 
