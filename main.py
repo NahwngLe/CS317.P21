@@ -29,6 +29,6 @@ model_xgboost_params = {
 }
 dataset_link = "https://www.kaggle.com/datasets/dhoogla/cicids2017"
 
-# pipeline("data", dataset_link, "nn", model_nn_7layer_params, "Anomaly Detection")
-# pipeline("data", dataset_link, "nn", model_nn_10layer_params, "Anomaly Detection")
+pipeline("data", dataset_link, "nn", model_nn_7layer_params, "Anomaly Detection")
+pipeline("data", dataset_link, "nn", model_nn_10layer_params, "Anomaly Detection")
 pipeline("data", dataset_link, "xgboost", model_xgboost_params, "Anomaly Detection")

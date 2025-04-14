@@ -197,7 +197,7 @@ def training_model_nn(X_train, X_val, y_train, y_val, model, model_name, run_nam
         plt.legend()
         plt.savefig("loss_plot.png")
         mlflow.log_artifact("loss_plot.png")
-        plt.close()  # Close the figure
+        plt.close()
 
         plt.figure()
         plt.plot(history.history['accuracy'], label='accuracy')
@@ -205,7 +205,7 @@ def training_model_nn(X_train, X_val, y_train, y_val, model, model_name, run_nam
         plt.legend()
         plt.savefig("accuracy_plot.png")
         mlflow.log_artifact("accuracy_plot.png")
-        plt.close()  # Close the figure
+        plt.close()
 
     return history, model, run_id
 
@@ -219,7 +219,6 @@ def training_model_traditional(X_train, X_val, y_train, y_val, model_name, run_n
         iterations  = 20
         checkpoint_prefix = f"{model_name}_checkpoint"
 
-        # Tạo thư mục models/ nếu nó không tồn tại
         os.makedirs("models", exist_ok=True)
 
         if model_name == "xgboost":
