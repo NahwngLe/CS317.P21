@@ -132,7 +132,7 @@ Kết quả của dự án này được ghi lại trong MLflow. Bạn có thể
 
 ![491026607_1460727028670256_1670560323149226156_n](https://github.com/user-attachments/assets/bc981d9f-ce40-4a40-b483-5294e2b38299)
 
-### Màn hình MLflow Ui với experiment Hyperparameter Tuning với các trials là các run name riêng biệt để dễ dàng so sánh các trials với nhau để lựa chọn hyperparameter tốt nhất:
+ Màn hình MLflow Ui với experiment Hyperparameter Tuning với các trials là các run name riêng biệt để dễ dàng so sánh các trials với nhau để lựa chọn hyperparameter tốt nhất:
 
 ![Screenshot 2025-04-14 115422](https://github.com/user-attachments/assets/a8de4305-4342-4be1-9405-b9c957a969e7)
 
