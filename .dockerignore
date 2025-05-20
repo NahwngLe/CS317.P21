@@ -1,0 +1,23 @@
+# Loại trừ thư mục chứa code cục bộ không cần thiết
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Loại trừ thư mục dữ liệu, logs, và output lớn
+data/
+logs/
+output/
+mlruns/
+
+# File cá nhân / cấu hình IDE
+.vscode/
+.idea/
+*.env
+*.log
+
+# File hệ thống
+.DS_Store
+Thumbs.db
+
+# File Dockerfile, docker-compose.yml (không cần loại trừ nếu bạn build trong thư mục đó)

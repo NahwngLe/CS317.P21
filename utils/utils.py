@@ -352,8 +352,8 @@ def pipeline(data_path, dataset_link, model_type, model_params, experiment_name)
             experiment_name (str): Tên experiment trên MLflow để lưu kết quả
     """
     df = data_preperation(data_path)
-    X_train, X_val, X_test, y_train, y_val, y_test = preprocessing_data(df)
 
+    X_train, X_val, X_test, y_train, y_val, y_test = preprocessing_data(df)
     input_dim = X_train.shape[1]
 
     if model_type == "nn":
