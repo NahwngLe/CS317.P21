@@ -8,7 +8,7 @@ __pycache__
 data/
 logs/
 output/
-mlruns/
+../mlruns/
 
 # File cá nhân / cấu hình IDE
 .vscode/
