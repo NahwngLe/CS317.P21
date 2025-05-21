@@ -1,9 +1,13 @@
 FROM python:3.12-slim
 
-COPY ../requirement.txt .
+WORKDIR /code
 
-RUN pip install --no-cache-dir -r requirement.txt
+COPY ./requirements.txt /code/requirements.txt
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
 
 EXPOSE 5000
 
-CMD mlflow models serve -m "models:/XGBoost/1" -h 0.0.0.0 -p 5000
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

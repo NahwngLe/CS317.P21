@@ -1,7 +1,29 @@
+version: "3.8"
+
 services:
-  mlflow-model-api:
-    build: .
-    container_name: mlflow-model-api
-    network_mode: host
+  mlflow:
+    build:
+      context: ./training_pipeline
+    container_name: mlflow-server
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./training_pipeline/mlruns:/app/mlruns
+    networks:
+      - mlflow
+
+  model-api:
+    build:
+      context: ./mlops_model_api
+    container_name: api
+    ports:
+      - "8000:8000"
     environment:
-      MLFLOW_TRACKING_URI: http://127.0.0.1:5000
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    depends_on:
+      - mlflow
+    networks:
+      - mlflow
+
+networks:
+  mlflow:

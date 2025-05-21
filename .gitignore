@@ -3,8 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-models
-
 # C extensions
 *.so
 
@@ -72,8 +70,7 @@ pip-delete-this-directory.txt
 *.png
 
 # MLflow
-mlruns/
-mlartifacts/
+
 
 # TensorBoard / wandb
 runs/
