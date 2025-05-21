@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/924514158964128293/8e389019a90a43a2b8cea58bf94ccec9/artifacts
+deleted_time: 1744564145720
+end_time: 1744561686666
+entry_point_name: ''
+experiment_id: '924514158964128293'
+lifecycle_stage: deleted
+run_id: 8e389019a90a43a2b8cea58bf94ccec9
+run_name: xgboost_run
+run_uuid: 8e389019a90a43a2b8cea58bf94ccec9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744560830774
+status: 4
+tags: []
+user_id: FPT SHOP

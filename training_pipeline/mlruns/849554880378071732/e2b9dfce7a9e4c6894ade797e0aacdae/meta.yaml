@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/849554880378071732/e2b9dfce7a9e4c6894ade797e0aacdae/artifacts
+deleted_time: 1744557844468
+end_time: 1744555928483
+entry_point_name: ''
+experiment_id: '849554880378071732'
+lifecycle_stage: deleted
+run_id: e2b9dfce7a9e4c6894ade797e0aacdae
+run_name: XgboostOptunaTunning
+run_uuid: e2b9dfce7a9e4c6894ade797e0aacdae
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744555901257
+status: 3
+tags: []
+user_id: FPT SHOP
