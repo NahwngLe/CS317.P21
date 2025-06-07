@@ -36,7 +36,7 @@ from mlflow.models.signature import infer_signature
 import warnings
 warnings.filterwarnings("ignore")
 
-from utils.tunning import *
+from training_pipeline.utils.tunning import *
 
 def data_preperation(data_path, seed=1802):
     seed = 1802
