@@ -249,6 +249,8 @@ Tất cả kết quả huấn luyện và đánh giá mô hình được lưu tr
 ## Demo
 [Demo quá trình training va flog vào MLflow](https://drive.google.com/file/d/1qsrdkCoRoceD5wUY-S3fakloE2FlWxGL/view?usp=drive_link)
 
+[Demo Lab2](https://drive.google.com/file/d/1WJtebXGlgJ0ZGSOeAYQsMjiGicxlgFSq/view?usp=sharing)
+
 ## Đóng góp
 
 Đóng góp cho dự án này được hoan nghênh. Vui lòng tạo pull request nếu bạn có bất kỳ cải tiến nào.
