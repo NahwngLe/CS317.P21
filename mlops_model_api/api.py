@@ -2,6 +2,9 @@ from fastapi import FastAPI
 import mlflow
 import numpy as np
 import time
+import os
+import logging
+import sys
 
 from prometheus_client import (
     CollectorRegistry,
@@ -11,12 +14,41 @@ from prometheus_client import (
 )
 from prometheus_fastapi_instrumentator import Instrumentator, metrics
 
+# ──────────────────────────────────────────────
 # Load model from MLflow
 mlflow.set_tracking_uri("http://mlflow:5000/")
 model_uri = "models:/XGBoost/1"
 model = mlflow.sklearn.load_model(model_uri)
 
+# ──────────────────────────────────────────────
+
 app = FastAPI()
+
+# ──────────────────────────────────────────────
+# Logging setup
+os.makedirs("logs", exist_ok=True)
+
+logger = logging.getLogger("model_api_logger")
+logger.setLevel(logging.INFO)
+
+# Log to file
+file_handler = logging.FileHandler("logs/model_api.log")
+file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+logger.addHandler(file_handler)
+
+# Log to stdout
+stdout_handler = logging.StreamHandler(sys.stdout)
+stdout_handler.setLevel(logging.INFO)
+stdout_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+logger.addHandler(stdout_handler)
+
+# Log errors to stderr
+stderr_handler = logging.StreamHandler(sys.stderr)
+stderr_handler.setLevel(logging.ERROR)
+stderr_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+logger.addHandler(stderr_handler)
+
+logger.info("✅ Model API server started.")
 
 # ──────────────────────────────────────────────
 # Custom Prometheus registry for /sysmetrics
@@ -80,6 +112,7 @@ async def predict(data: dict):
         dict: {"predicted_class": "Benign" or "Not Benign", "confidence_score": float}
     """
     try:
+        logger.info("Received prediction request.")
         features = np.array(data["feature"]).reshape(1, -1)
 
         start = time.time()
@@ -92,10 +125,14 @@ async def predict(data: dict):
         inference_latency.observe(end - start)
         confidence_gauge.set(confidence)
 
+        logger.info(f"Predicted: {'Benign' if predicted_class == 0 else 'Not Benign'}, Confidence: {confidence:.4f}, "
+                    f"Latency: {end - start:.4f}s")
+
         return {
             "predicted_class": "Benign" if predicted_class == 0 else "Not Benign",
             "confidence_score": confidence
         }
 
     except Exception as e:
+        logger.error(f"Prediction error: {str(e)}", exc_info=True)
         return {"error": str(e)}
