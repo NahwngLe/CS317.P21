@@ -20,10 +20,71 @@ services:
       - "8000:8000"
     environment:
       - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - ENABLE_METRICS=true
     depends_on:
       - mlflow
     networks:
       - mlflow
+
+  node-exporter:
+    image: prom/node-exporter
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+    networks:
+      - mlflow
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - mlflow
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+    environment:
+      - GF_LOG_LEVEL=debug
+    ports:
+      - "3000:3000"
+    volumes:
+      - 'grafana_storage:/var/lib/grafana'
+    networks:
+      - mlflow
+
+  loki:
+    image: grafana/loki:3.0.0
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./monitoring/loki-config.yml:/etc/loki/loki-config.yml
+      - ./data:/tmp
+#      - ./loki-data/index:/loki/index
+#      - ./loki-data/chunks:/loki/chunks
+#      - ./loki-data/compactor:/loki/compactor
+#      - ./loki-data/cache:/loki/boltdb-cache
+    command: -config.file=/etc/loki/loki-config.yml
+    networks:
+      - mlflow
+
+  promtail:
+    image: grafana/promtail:3.0.0                   # Specifies the Promtail Docker image and version.
+    container_name: promtail                        # Names the container for easier management.
+    volumes:
+      - ./monitoring/promtail-config.yaml:/etc/promtail/promtail-config.yaml # Mounts the Promtail configuration file.
+      - /var/log:/var/log                           # Mounts the host's log directory.
+    depends_on:
+      - loki                                       # Ensures Promtail starts after Loki.
+    command: -config.file=/etc/promtail/promtail-config.yaml
+
+volumes:
+  grafana_storage: {}
 
 networks:
   mlflow:
