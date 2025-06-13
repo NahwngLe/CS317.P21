@@ -60,28 +60,33 @@ services:
 
   loki:
     image: grafana/loki:3.0.0
+    container_name: loki
     ports:
       - "3100:3100"
     volumes:
-      - ./monitoring/loki-config.yml:/etc/loki/loki-config.yml
+      - ./monitoring/loki-config.yaml:/etc/loki/loki-config.yaml
       - ./data:/tmp
 #      - ./loki-data/index:/loki/index
 #      - ./loki-data/chunks:/loki/chunks
 #      - ./loki-data/compactor:/loki/compactor
 #      - ./loki-data/cache:/loki/boltdb-cache
-    command: -config.file=/etc/loki/loki-config.yml
+    command: -config.file=/etc/loki/loki-config.yaml
     networks:
       - mlflow
 
   promtail:
-    image: grafana/promtail:3.0.0                   # Specifies the Promtail Docker image and version.
-    container_name: promtail                        # Names the container for easier management.
+    image: grafana/promtail:3.0.0
+    container_name: promtail
     volumes:
-      - ./monitoring/promtail-config.yaml:/etc/promtail/promtail-config.yaml # Mounts the Promtail configuration file.
-      - /var/log:/var/log                           # Mounts the host's log directory.
+      - ./monitoring/promtail-config.yaml:/etc/promtail/promtail-config.yaml
+      - /var/log:/var/log
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - ./logs:/var/log/app
     depends_on:
-      - loki                                       # Ensures Promtail starts after Loki.
+      - loki
     command: -config.file=/etc/promtail/promtail-config.yaml
+    networks:
+      - mlflow
 
 volumes:
   grafana_storage: {}
